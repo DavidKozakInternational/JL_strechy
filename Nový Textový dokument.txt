@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: jl_strechy_database
+    environment:
+      MYSQL_ROOT_PASSWORD: Sydz0oec!12
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: Sydz0oec!12
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  backup:
+    image: fradelg/mysql-cron-backup
+    container_name: mysql_backup
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Sydz0oec!12
+      - MYSQL_DUMP_FREQ=1h
+      - MYSQL_DUMP_BEGIN=+0
+      - MYSQL_DUMP_TARGET=/backup
+    volumes:
+      - ./backups:/backup
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
