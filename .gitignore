@@ -1,0 +1,15 @@
+
+# Ignoruj systémové soubory a zálohy
+*.DS_Store
+*.log
+*.tmp
+*.zip
+
+# IDE nastavení
+.vscode/
+.idea/
+
+# OS zálohy
+Thumbs.db
+ehthumbs.db
+Desktop.ini
